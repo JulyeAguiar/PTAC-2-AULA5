@@ -4,13 +4,26 @@ export default function Home() {
    const [atividades, setAtividades] = useState("")
    const [listas, setListas] = useState([])
    const [identidade, setIdentidade] = useState(1)
+   const [excluir,setExcluir] = useState([])
+
+   const remove = (id) =>{
+    const lista2 = []
+    listas.map((listas) =>{
+        if (listas.id !== id){
+            lista2.push(listas)
+        }
+    })
+    setListas(lista2)
+    console.log(lista2)
+   }
+
    const salvar = (e) =>{
     e.preventDefault()
     setListas([...listas,{
         atividades:atividades, identidade:identidade
     }])
     setIdentidade(identidade + 1)
-    alert("A palavra salva é... " + atividades)
+    //alert("A palavra salva é... " + atividades)
     console.log(listas)
    }
     return (
@@ -24,9 +37,12 @@ export default function Home() {
             </form>
 
             {listas.map((atv) =>
-                <div key={atv.identidade}>
-                    <p>{atv.atividades}</p>
-                </div>
+                <ul key={atv.identidade}>
+                    <li>
+                        <p>{atv.atividades}</p>
+                        <button onClick={() => remove(atv.id)}>Excluir</button>
+                    </li>
+                </ul>
             )}
         </div>
 
