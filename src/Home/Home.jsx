@@ -1,7 +1,11 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import "./style.css";
+
 export default function Home() {
-   const [imagem, setImagem] = useState("")
+    
+
    const [nome, setNome] = useState("")
    const [golpe, setGolpe] = useState("")
    const [defesa, setdefesa] = useState("")
@@ -11,18 +15,18 @@ export default function Home() {
    const salvar = (e) =>{
     e.preventDefault()
     setListas([...listas,{
-        imagem:imagem,
         nome:nome,
         golpe:golpe,
         defesa:defesa,
         identidade:identidade
     }])
     setIdentidade(identidade + 1)
-    setImagem("")
+    setNome("")
 
-    //alert("A palavra salva é... " + atividades)
     console.log(listas)
+
    }
+
 
    const remove = (id) =>{
     const lista2 = []
@@ -35,44 +39,54 @@ export default function Home() {
     console.log(lista2)
    }
 
+   
+
     return (
         <div>
-            <Link to="/todo">todo</Link>
-            <h1>Lista de Atividade</h1>
+
             <form onSubmit={salvar}>
 
-                <h2>Insira um caminho de imagem</h2>
-                    <input type="text" onChange={(e) => {setImagem(e.target.value)}}></input>
-                <br/>
-
-                <h2>Insira o Nome</h2>
+            <div class="form-container">
+            <br/>
+                <h2>Insira um Nome</h2>
                 <input type="text" onChange={(e) => {setNome(e.target.value)}}></input>
 
                 <h2>Insira o Dano</h2>
-                <input type="text" onChange={(e) => {setGolpe(e.target.value)}}></input>
+                <input type="number" onChange={(e) => {setGolpe(e.target.value)}}></input>
 
                 <h2>Insira a Força</h2>
-                <input type="text" onChange={(e) => {setdefesa(e.target.value)}}></input>
+                <input type="number" onChange={(e) => {setdefesa(e.target.value)}}></input>
 
-                
-                <button>Butão</button>
+                <button>Enviar</button>
+            </div>
+
                 
             </form>
 
             {listas.map((atv) =>
-                <ul key={atv.identidade}>
-                    <li>
-                        <ul>
-                            <li><p>{atv.imagem}</p></li>
-                            <li><p>{atv.nome}</p></li>
-                            <li><p>{atv.golpe}</p></li>
-                            <li><p>{atv.defesa}</p></li>
-                        </ul>
-                    </li>
-                    <button onClick={() => remove(atv.identidade)}>Excluir</button>
-                </ul>
+                <main>
+                    <ul key={atv.identidade}>
+                        
+                        <div class="card">
+                            <br/>
+                                <h2>{atv.nome}</h2>
+                            <br/>
+                            <br/>
+                                <img src={atv.nome}></img>
+                            <br/>
+                            <br/>
+                            <br/>
+                                <h3>Golpe: {atv.golpe}</h3>
+                                <h3>Defesa: {atv.defesa}</h3>
+                        </div>
+        
+                        <button onClick={() => remove(atv.identidade)}>Excluir</button>
+                    </ul>
+                </main>
             )}
         </div>
 
     );
+
+    
 }
