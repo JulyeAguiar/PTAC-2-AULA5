@@ -1,21 +1,24 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function Home() {
-    
-
+    const listaLocalStorage = JSON.parse(localStorage.getItem("Listas"));
    const [nome, setNome] = useState("")
+   const [imagem, setImagem] = useState("")
    const [golpe, setGolpe] = useState("")
    const [defesa, setdefesa] = useState("")
-   const [listas, setListas] = useState([])
+   const [listas, setListas] = useState(listaLocalStorage || [])
    const [identidade, setIdentidade] = useState(1)
+
+   useEffect(() => {localStorage.setItem("Listas", JSON.stringify(listas))},[listas])
 
    const salvar = (e) =>{
     e.preventDefault()
     setListas([...listas,{
         nome:nome,
+        imagem:imagem,
         golpe:golpe,
         defesa:defesa,
         identidade:identidade
@@ -51,6 +54,9 @@ export default function Home() {
                 <h2>Insira um Nome</h2>
                 <input type="text" onChange={(e) => {setNome(e.target.value)}}></input>
 
+                <h2>Insira uma imagem</h2>
+                <input type="text" onChange={(e) => {setImagem(e.target.value)}}></input>
+
                 <h2>Insira o Dano</h2>
                 <input type="number" onChange={(e) => {setGolpe(e.target.value)}}></input>
 
@@ -72,7 +78,7 @@ export default function Home() {
                                 <h2>{atv.nome}</h2>
                             <br/>
                             <br/>
-                                <img src={atv.nome}></img>
+                                <img src={atv.imagem}></img>
                             <br/>
                             <br/>
                             <br/>
