@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function Home() {
-    const listaLocalStorage = JSON.parse(localStorage.getItem("Listas"));
+   const listaLocalStorage = JSON.parse(localStorage.getItem("Listas"));
    const [nome, setNome] = useState("")
    const [imagem, setImagem] = useState("")
    const [golpe, setGolpe] = useState("")
    const [defesa, setdefesa] = useState("")
    const [listas, setListas] = useState(listaLocalStorage || [])
-   const [identidade, setIdentidade] = useState(1)
+   const [identidade, setIdentidade] = useState(listaLocalStorage [listaLocalStorage.length -1]?.id + 1 || 1)
 
    useEffect(() => {localStorage.setItem("Listas", JSON.stringify(listas))},[listas])
 
@@ -49,7 +49,7 @@ export default function Home() {
 
             <form onSubmit={salvar}>
 
-            <div class="form-container">
+            <div className="form-container">
             <br/>
                 <h2>Insira um Nome</h2>
                 <input type="text" onChange={(e) => {setNome(e.target.value)}}></input>
@@ -70,10 +70,10 @@ export default function Home() {
             </form>
 
             {listas.map((atv) =>
-                <main>
-                    <ul key={atv.identidade}>
+                <main key={atv.identidade}>
+                    <ul >
                         
-                        <div class="card">
+                        <div className="card">
                             <br/>
                                 <h2>{atv.nome}</h2>
                             <br/>
