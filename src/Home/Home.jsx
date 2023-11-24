@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function Home() {
-   const listaLocalStorage = JSON.parse(localStorage.getItem("Listas"));
+   const listaLocalStorage = JSON.parse(localStorage.getItem("Listas")) || [];
    const [nome, setNome] = useState("")
    const [imagem, setImagem] = useState("")
    const [golpe, setGolpe] = useState("")
    const [defesa, setdefesa] = useState("")
-   const [listas, setListas] = useState(listaLocalStorage || [])
-   const [identidade, setIdentidade] = useState(listaLocalStorage [listaLocalStorage.length -1]?.id + 1 || 1)
+   const [listas, setListas] = useState(listaLocalStorage)
+   const [identidade, setIdentidade] = useState(listaLocalStorage [listaLocalStorage.length -1]?.id + 1 || 1)//length = número de elemento de um array
 
    useEffect(() => {localStorage.setItem("Listas", JSON.stringify(listas))},[listas])
 
@@ -72,12 +72,12 @@ export default function Home() {
             {listas.map((atv) =>
                 <main key={atv.identidade}>
                     <ul >
-                        
-                        <div className="card">
-                            <br/>
-                                <h2>{atv.nome}</h2>
-                            <br/>
-                            <br/>
+                       <Link to ={`/detalhe/${atv.identidade}`}>
+                            <div className="card">
+                                <br/>
+                                    <h2>{atv.nome}</h2>
+                                <br/>
+                                <br/>
                                 <img src={atv.imagem}></img>
                             <br/>
                             <br/>
@@ -85,6 +85,7 @@ export default function Home() {
                                 <h3>Golpe: {atv.golpe}</h3>
                                 <h3>Defesa: {atv.defesa}</h3>
                         </div>
+                        </Link>
         
                         <button onClick={() => remove(atv.identidade)}>Excluir</button>
                     </ul>
